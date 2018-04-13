@@ -1,23 +1,24 @@
 {
-  "short_name": "AirHorner",
-  "name": "Kinlan's AirHorner of Infamy",
+  "short_name": "Smartbadge Registration",
+  "name": "Iconica Smartbadge Registration",
   "display":"standalone",
   "icons": [
     {
-      "src": "/images/smartbadgeicon.png",
+      "src": "/images/ic_launcher_48x48.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "/images/smartbadgeicon.png",
+      "src": "/images/ic_launcher_96x96.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "/images/smartbadgeicon.png",
+      "src": "/images/ic_launcher_192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     }
   ],
+  "background_color": "#096BA6",
   "start_url": "index.html?launcher=true"
 }

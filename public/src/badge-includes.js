@@ -1,4 +1,4 @@
-import '/node_modules/@polymer/polymer/polymer.js'
+import '/node_modules/@polymer/polymer/polymer-legacy.js'
 import '/node_modules/@polymer/paper-button/paper-button.js'
 import '/node_modules/@polymer/iron-icons/iron-icons.js'
 import '/node_modules/@polymer/paper-icon-button/paper-icon-button.js'
@@ -8,6 +8,10 @@ import '/node_modules/@polymer/app-layout/app-header/app-header.js'
 import '/node_modules/@polymer/paper-progress/paper-progress.js'
 import '/node_modules/@polymer/paper-fab/paper-fab.js'
 import '/node_modules/@polymer/paper-input/paper-input.js'
+import '/node_modules/@polymer/paper-listbox/paper-listbox.js'
+import '/node_modules/@polymer/paper-dropdown-menu/paper-dropdown-menu.js'
+import '/node_modules/@polymer/paper-item/paper-item.js'
+import '/node_modules/@polymer/paper-checkbox/paper-checkbox.js'
 import '/node_modules/@polymer/paper-tabs/paper-tabs.js'
 import '/node_modules/@polymer/paper-dialog/paper-dialog.js'
 import '/node_modules/@polymer/paper-card/paper-card.js'
@@ -29,8 +33,10 @@ import '/node_modules/@iconica/iconicaelements/ico-document.js'
 import '/node_modules/@iconica/iconicaelements/ico-storage-item.js'
 
 import './badge-styles.js';
+import './badge-registration.js'
 import './badge-presentation.js'
 import './badge-scanner.js';
 import './badge-confirm.js';
 import './badge-prompt.js';
 import './badge-print.js';
+import './badge-buttongroup.js';

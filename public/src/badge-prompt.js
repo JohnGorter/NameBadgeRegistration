@@ -1,5 +1,5 @@
-import '/node_modules/@polymer/polymer/polymer.js';
-import { Element as PolymerElement } from '/node_modules/@polymer/polymer/polymer-element.js'
+import '/node_modules/@polymer/polymer/polymer-legacy.js';
+import { PolymerElement } from '/node_modules/@polymer/polymer/polymer-element.js'
 
 const html = String.raw;
 const htmlTemplate = html`

@@ -1,7 +1,7 @@
 // @ts-check 
-import '/node_modules/@polymer/polymer/polymer.js'
+import '/node_modules/@polymer/polymer/polymer-legacy.js'
 import { GestureEventListeners } from '../node_modules/@polymer/polymer/lib/mixins/gesture-event-listeners.js'
-import { Element } from '../node_modules/@polymer/polymer/polymer-element.js'
+import { PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js'
 import '/node_modules/@polymer/iron-pages/iron-pages.js'
 
 const htmlTemplate = ` 
@@ -64,7 +64,7 @@ const htmlTemplate = `
                     Uw zoekopdracht heeft geen resultaten opgeleverd
                 </div>
             </template>
-            <template is="dom-repeat" id="grid" items="{{items}}" initial-count="20" filter="{{_filter(filter)}}" observe="filter">
+            <template is="dom-repeat" id="grid" items="{{items}}" initial-count="20" filter="{{_filter(filter)}}" observe="filter" sort="_sort">
             <div on-tap="_selectItem" class$="[[_getClassForCard(item, selectedItems.*)]]" elevation="1" style$="{{_getBackgroundStyle(item.Photo)}}">
                 <span class="overlay">[[item.FirstName]]<br/>[[item.LastName]]</span>
                 <template is="dom-if" if="[[_isSelected(item, selectedItems.*)]]">
@@ -79,7 +79,7 @@ const htmlTemplate = `
    
 `;
 
-export class BadgePresentation extends GestureEventListeners(Element) {
+export class BadgePresentation extends GestureEventListeners(PolymerElement) {
     static get template() { return htmlTemplate; }
     static get properties() {
         return {
@@ -115,6 +115,13 @@ export class BadgePresentation extends GestureEventListeners(Element) {
             return `position:relative;margin:0px;padding:0px;width:95vw;height:447px;background:url(/images/nophoto.jpg) no-repeat;background-size:100% 100%;`;
         
     }
+    
+    _sort(a, b) {
+        var y =  new Date(a.ApplicationDate);
+        var x = new Date(b.ApplicationDate);
+        return x < y ? -1 : x > y ? 1 : 0;
+    }
+
     _getBackgroundStyle(img){
         if (img && img != "n/a") return `background:url(${img}) no-repeat;background-size:100% 100%;`;
         return "background-color:" + ["#43BC84", "#08A195","#0DC4D7"][(Math.floor(Math.random() * 10) % 3)]; 

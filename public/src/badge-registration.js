@@ -1,121 +1,324 @@
 // @ts-check
 
-import '/node_modules/@polymer/polymer/polymer.js'
-import { Element as PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js'
+import '/node_modules/@polymer/polymer/polymer-legacy.js'
+import { PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js'
 import '/node_modules/@polymer/paper-input/paper-input.js'
 
 const template = `
-        <style is="custom-style" include="app-styles">
+        <style>
+        :root {
+            --paper-listbox-background-color:white;
+            --paper-input-container-underline: {
+              border:1px solid var(--tint-color);
+            };
+        }
+        badge-buttongroup paper-button { margin-bottom:10px;}
+
+        paper-button {
+            background-color:#ddd;
+            color:var(--tint-color);
+            }
+        paper-button[small] {
+            width: 80px;
+            height: 30px;
+            font-size: 2vw;
+        }
+        paper-button.iron-selected {
+        transform:translateX(-1px) translateY(-1px);
+        background-color:var(--tint-color);
+        color:white;
+        box-shadow:5px 5px 5px #555;
+        }
+        .page { width:90vw;height:75vh;background-color:white;padding-left:40px;padding-right:0px;padding-top:30px;}
+        paper-input { margin-left:20px;width:40vw;}
+        paper-dropdown-menu { margin-left:20px;}
+        paper-input[wide] { width:70vw;}
+        :root { --paper-input-container-color:#bbb;
+            --paper-input-container-label: {
+                font-size:3vw;
+            }; }
+        ico-wizard > div { overflow:scroll}
+        p { font-size:3vw;}
+        .strong { margin-left:20px;font-family:sans-serif;font-weight:bold;font-size:3vw}
+        hr { border:0.5px solid silver;margin-top:25px;}
+        paper-fab { background-color:var(--tint-color);position:fixed;right:20px;bottom:50px;}
+        paper-fab[hidden] { display:none;}
         </style>
 
-    <ico-wizard id="wizard" progressbar progressbar-style="small" showfinish step="{{step}}" on-step-changed="_onStep" on-complete="_completeRegistration">
-        <div step4 on-open="_generateBarcode">
-           badge barcode
-        //    <svg id="barcode"></svg>   
-           <div id="barcode"></div>
-           <paper-button on-tap="_printbadge">Print badge</paper-button> 
-        </div>
-        <div step3>
-            <ico-grid flex id="photoselect" items="{{registrationdata.thumbs}}" selected-object="{{registrationdata.thumb}}">
-                <img height="100%" width="100%" src="{_{item}_}" />
-            </ico-grid>
-        </div>
+    <ico-wizard id="wizard" progressballs showfinish step="{{step}}">
+        
 
-        <div step2 on-close="_stopRecording" on-open="_startRecording">
-             <ico-recorder id="recorder" videoblob="{{registrationdata.video}}" counter="0" recordingtime="1" thumbs="{{registrationdata.thumbs}}" on-recording-complete="_completeRecording"></ico-recorder>
-            <div id="details" class="shown">
-                <div id="backpanel" class="registration-back_panel">
-                   <div><p class="large">Deel je foto met de rest!</p></div>
-                  <div><p>Stel jezelf voor aan andere bezoekers van ....</p></div>
+        <div step0>
+            <p class="strong">In drie stappen je netwerk verbreden.</p>
+            <hr>
+            <paper-input value="{{registration.FirstName}}" label="Je voornaam"  ></paper-input>
+            <paper-input value="{{registration.LastName}}" label="Je achternaam"  ></paper-input>
+            <paper-input value="{{registration.Email}}" label="Email address" ></paper-input>
+            <paper-input value="{{registration.Telefoonnummer}}" label="Je telefoonnummer" ></paper-input>
+            <hr>
+            <p>Ik ben een</p>
+            <badge-buttongroup selected="{{registration.registrationType}}">
+                <paper-button small >Ondernemer</paper-button>   
+                <paper-button small >Student</paper-button>   
+                <paper-button small >Bezoeker</paper-button>
+            <badge-buttongroup> 
+            <template is="dom-if" if="[[showError]]">
+                 <span style="color:red;font-family:sans-serif;font-size:10px;">Kies een van de bovenstaande opties</span>
+            </template>  
+        </div>
+        <div step1>
+            <iron-pages selected="{{registration.registrationType}}">
+                <div>
+                    <p class="strong">Vertel ons meer over je business!</p>
+                    <hr>
+                    <paper-input value="{{registration.Company}}" label="Wat is de naam van je bedrijf?" ></paper-input>
+                    <paper-dropdown-menu  allow-outside-scroll label="Actief in de sector:" value="{{registration.Sector}}">
+                        <paper-listbox slot="dropdown-content" selected="1">
+                        <paper-item>Agriculture</paper-item>
+                        <paper-item>Big data</paper-item>
+                        <paper-item>Business Products</paper-item>
+                        <paper-item>Business Services</paper-item>
+                        <paper-item>Bio technology</paper-item>
+                        <paper-item>Chemical</paper-item>
+                        <paper-item>Consulting</paper-item>
+                        <paper-item>Clean technology</paper-item>
+                        <paper-item>Consumer Products</paper-item>
+                        <paper-item>E-commerce</paper-item>
+                        <paper-item>E-learning</paper-item>
+                        <paper-item>Energy</paper-item>
+                        <paper-item>Education & E-learning</paper-item>
+                        <paper-item>Electronics</paper-item>
+                        <paper-item>Entertainment</paper-item>
+                        <paper-item>Financial Technology</paper-item>
+                        <paper-item>Gaming</paper-item>
+                        <paper-item>Health care & Medical</paper-item>
+                        <paper-item>Life Sciences</paper-item>
+                        <paper-item>Lifestyle</paper-item>
+                        <paper-item>Logistics & Transport</paper-item>
+                        <paper-item>Nano technology</paper-item>
+                        <paper-item>Marketing & E-commerce</paper-item>
+                        <paper-item>Mobile & Apps</paper-item>
+                        <paper-item>Semi conductors</paper-item>
+                        <paper-item>Social media</paper-item>
+                        <paper-item>Smart Cities</paper-item>
+                        <paper-item>Sports</paper-item>
+                        <paper-item>Telecommunicaties</paper-item>
+                        <paper-item>Travel & Tourism</paper-item>
+                        <paper-item>Other</paper-item>
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+                    <paper-input  wide value="{{registration.Description}}" label="Met welke trefwoorden kan je je bedrijf omschrijven?"></paper-input>
+                    <paper-input wide value="{{registration.CompanyYear}}" label="In welk jaar is je bedrijf opgericht?"></paper-input>
+                    <paper-input wide value="{{registration.Interest}}" label="Ik zou graag in contact komen met mensen die me toegang kunnen bieden tot?"></paper-input>
+                    <hr>
+                </div>
+                <div>
+                    <p class="strong">Wat leuk, je komt ons bezoeken als student!</p>
+                    <hr>
+                    <paper-input value="{{registration.School}}" label="Op welke school zit je?" ></paper-input>
+                    <paper-dropdown-menu  allow-outside-scroll label="In welke sector ben je geinteresseerd?" value="{{registration.Sector}}">
+                        <paper-listbox slot="dropdown-content" selected="1">
+                        <paper-item>Agriculture</paper-item>
+                        <paper-item>Big data</paper-item>
+                        <paper-item>Business Products</paper-item>
+                        <paper-item>Business Services</paper-item>
+                        <paper-item>Bio technology</paper-item>
+                        <paper-item>Chemical</paper-item>
+                        <paper-item>Consulting</paper-item>
+                        <paper-item>Clean technology</paper-item>
+                        <paper-item>Consumer Products</paper-item>
+                        <paper-item>E-commerce</paper-item>
+                        <paper-item>E-learning</paper-item>
+                        <paper-item>Energy</paper-item>
+                        <paper-item>Education & E-learning</paper-item>
+                        <paper-item>Electronics</paper-item>
+                        <paper-item>Entertainment</paper-item>
+                        <paper-item>Financial Technology</paper-item>
+                        <paper-item>Gaming</paper-item>
+                        <paper-item>Health care & Medical</paper-item>
+                        <paper-item>Life Sciences</paper-item>
+                        <paper-item>Lifestyle</paper-item>
+                        <paper-item>Logistics & Transport</paper-item>
+                        <paper-item>Nano technology</paper-item>
+                        <paper-item>Marketing & E-commerce</paper-item>
+                        <paper-item>Mobile & Apps</paper-item>
+                        <paper-item>Semi conductors</paper-item>
+                        <paper-item>Social media</paper-item>
+                        <paper-item>Smart Cities</paper-item>
+                        <paper-item>Sports</paper-item>
+                        <paper-item>Telecommunicaties</paper-item>
+                        <paper-item>Travel & Tourism</paper-item>
+                        <paper-item>Other</paper-item>
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+                    <paper-input wide value="{{registration.Interest}}" label="Ik wil graag mensen ontmoeten die mij kunnen helpen met?"></paper-input>
+                    <paper-input wide style="margin-top: 10px;" value="{{registration.Motivation}}" label="Wat is jouw motivatie voor jou aanwezigheid op de summit?"></paper-input>
+                    <hr>
+                </div>
+                <div>
+                    <p class="strong">We helpen je graag met het leggen van verbindingen</p>
+                    <hr>
+                    <paper-input value="{{registration.Company}}" label="Wat is de naam van je bedrijf?" ></paper-input>
+                    <paper-input value="{{registration.Function}}" label="Wat is uw functie binnen het bedrijf?" ></paper-input>
+                    <paper-dropdown-menu allow-outside-scroll label="Actief in de sector:" value="{{registration.Sector}}">
+                        <paper-listbox slot="dropdown-content" selected="1">
+                        <paper-item>Agriculture</paper-item>
+                        <paper-item>Big data</paper-item>
+                        <paper-item>Business Products</paper-item>
+                        <paper-item>Business Services</paper-item>
+                        <paper-item>Bio technology</paper-item>
+                        <paper-item>Chemical</paper-item>
+                        <paper-item>Consulting</paper-item>
+                        <paper-item>Clean technology</paper-item>
+                        <paper-item>Consumer Products</paper-item>
+                        <paper-item>E-commerce</paper-item>
+                        <paper-item>E-learning</paper-item>
+                        <paper-item>Energy</paper-item>
+                        <paper-item>Education & E-learning</paper-item>
+                        <paper-item>Electronics</paper-item>
+                        <paper-item>Entertainment</paper-item>
+                        <paper-item>Financial Technology</paper-item>
+                        <paper-item>Gaming</paper-item>
+                        <paper-item>Health care & Medical</paper-item>
+                        <paper-item>Life Sciences</paper-item>
+                        <paper-item>Lifestyle</paper-item>
+                        <paper-item>Logistics & Transport</paper-item>
+                        <paper-item>Nano technology</paper-item>
+                        <paper-item>Marketing & E-commerce</paper-item>
+                        <paper-item>Mobile & Apps</paper-item>
+                        <paper-item>Semi conductors</paper-item>
+                        <paper-item>Social media</paper-item>
+                        <paper-item>Smart Cities</paper-item>
+                        <paper-item>Sports</paper-item>
+                        <paper-item>Telecommunicaties</paper-item>
+                        <paper-item>Travel & Tourism</paper-item>
+                        <paper-item>Other</paper-item>
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+                    <div style="font-size:3vw;margin-left:20px;margin-top:30px;margin-bottom:20px;">Mijn activiteiten richten zich met name op:</div>
+                    <div style="margin-left:20px;">
+                        <badge-buttongroup multi selecteds="{{Tags}}">
+                            <paper-button small>Talent</paper-button>   
+                            <paper-button small>Capital</paper-button>   
+                            <paper-button small>Support</paper-button>
+                            <paper-button small>Network</paper-button>
+                            <paper-button small>Knowledge</paper-button>
+                            <paper-button small>Markets</paper-button>
+                        <badge-buttongroup> 
+                    </div>  
+                    <paper-input wide style="margin-top:10px;" value="{{registration.Interest}}" label="Ik zou graag mensen ontmoeten die me helpen met?"></paper-input>
+                    <hr>
+                </div>
+            </iron-pages>
+        </div>
+        <div step3 on-open="_setFinish">
+            <div style="flex-flow:column;display:flex;margin-right:40px;align-items:center;justify-content:center">
+                <p class="strong">Voorwaarden</p>
+                <p>Ik ga akkoord met het verstrekken van mijn telefoonnummer en email adres ten behoeve van het leggen van nieuwe contacten middels de SmartBadge(c) app. Deze gegevens worden uitstluitend gebruikt ter informatie voor overige deelnemers om in contact te komen met dit profiel.</p>
+
+                <div style="margin-top:50px">
+                    <p>Akkoord: <paper-checkbox checked="{{registration.akkoord}}" label="akkoord">
+                    </paper-checkbox></p>
+                </div>
+
+                <div style="margin-top:50px">
+                    <paper-button on-tap="_cancel">Annuleer registratie</paper-button>
                 </div>
             </div>
         </div>
-
-        <div step0>
-            <paper-input value="{{registrationdata.username}}" label="Voornaam + Achternaam" always-float-label placeholder="Je naam"></paper-input>
-        </div>
-        <div step1>
-            <paper-input value="{{registrationdata.username}}" class="done" disabled label="voornaam + achternaam"></paper-input>
-            <paper-input value="{{registrationdata.company}}"  label="Voor het leggen van goede verbindingen" always-float-label placeholder="Je bedrijfsnaam"></paper-input>
-        </div>
-        <div id="toolbar" slot="toolbar">
-            <paper-icon-button id="previous" icon="arrow-back" previouspage>prev</paper-icon-button>
-            <div id="spacer"></div>
-            <paper-button id="command" on-click="_record" hidden>command</paper-button>
-            <paper-button id="next" nextpage>{{nextstep}}</paper-button>
+        <div step2>
+            <div style="flex-flow:column;display:flex;align-items:center;justify-content:center">
+                <input type="file" id="picButton" on-change="_drawPhoto" hidden accept="image/*">
+                <paper-button on-tap="_takePic" style="margin-bottom:30px;margin-right:40px;">Maak foto</paper-button>
+                <canvas id="canvas" width="300" height="300" style="margin-right:40px"></canvas>
+            </div>
         </div>
 </ico-wizard>
+
+<paper-fab id="fab" on-tap="_nextPage" icon="[[icon]]"></paper-fab>
+<span id="backbutton" style="bottom:70px;left:20px;position:fixed;font-family:sans-serif;font-size:10px;color:#888" on-tap="_previousPage"><iron-icon icon="arrow-back"></iron-icon> Terug</span>
 `;
 
 export class BadgeRegistration extends PolymerElement {
     static get template(){ return template;}
     static get properties() { return { 
         step:{type:Number, notify:true},
-        registrationdata:{type:Object, value:{ thumbs:[]}, notify:true, readOnly:false},
+        icon: {type:String, value:"arrow-forward"},
+        registration:{type:Object, value:{ registrationType:-1 }, notify:true, readOnly:false},
         nextstep:{ type:String, value:"Start", notify:true}
     }}
-    reset(){
-        this.step = -1;
-        this.registrationdata = { thumbs:[]};
-        
-    }
-    start() {
-        if (this._hasToolbar()) { this.$.wizard.classList.add("toolbar")}; 
-     //   import('../node_modules/@iconica/iconicaelements/ico-wizard.js');  
-    }
-    _stopRecording(e) { this.$.recorder.stop(); }
-    _startRecording(e) { 
-        this.$.next.hidden = true;
-        this.$.command.innerText = "Maak foto"; 
-        this.$.command.hidden = false;
-        this.$.command.style.backgroundColor = "rgb(67, 188, 132)";
-    }
-    _record() {
-        this.$.wizard.hidetoolbar = true;
-        this.$.backpanel.classList.add("hidden");
-        this.$.recorder.start();
-        this.$.command.hidden = true;
-        this.$.next.disabled = true;
-        this.$.previous.disabled = true;
-    }
-    _completeRecording() {
-        this.$.next.hidden = false;
-        this.$.next.disabled = false; 
-        this.$.previous.disabled = false;
-        this.$.wizard.hidetoolbar = false;
-        this.$.backpanel.classList.remove("hidden");
-    }
-    _onStep(step){
-        this.$.command.hidden = true;
-        if(step.detail.value == 0) this.nextstep = "Start";
-        if(step.detail.value >= 1) this.nextstep = "Volgende";
-        if (step.detail.value == 2) import ("../node_modules/@iconica/iconicaelements/ico-recorder.js").then(() => {
-            this.$.recorder.init(false);
-        });
-        if (step.detail.value == 3) { this.$.photoselect.select(0);this.$.photoselect.render();}
-        if (step.detail.value == 3) { this.nextstep = "Finish";}
-    }
-    _completeRegistration(){
-        this.dispatchEvent(new CustomEvent("registration-complete", { detail: this.registrationdata }));
-        this.reset();
-    }
-    _printbadge(){
-        print();
-    }
-
-    _generateBarcode(){
-       var qrcode = new QRCode(this.$.barcode, {
-            width : 100,
-            height : 100
-        });
     
-        qrcode.makeCode(this.registrationdata.username);
-      
+    _setFinish() {
+        this.icon = "send";
+        this.completed = true;
+        this.showError = false;
     }
 
-    _hasToolbar(){
-        return false;//window.outerHeight < (screen.height-24);
+    _cancel(){
+        this.$.backbutton.hidden = true;
+        this.$.wizard.reset();
+        this.$.fab.hidden = false;
+        this.icon = "arrow-forward";
+        this.completed = false;
+        this.showError = false;
+        this._clearPhoto();
+        this.registration = { registrationType:-1 };
     }
+    _previousPage(){
+        this.completed = false;
+        this.icon = "arrow-forward";
+        this.$.wizard.previousPage();
+    }
+    _nextPage(){
+        this.$.backbutton.hidden = false;
+        if (!this.completed){
+            if (this.registration.registrationType > -1) {
+                this.$.wizard.nextPage();
+            } else {
+                this.showError = true;
+            }
+        }
+        else {
+            let tagnames = [];
+            if (this.Tags){
+                for (var t of this.Tags){
+                    tagnames.push(t.innerText);
+                }
+                this.registration.Activities = tagnames;
+            }
+
+            this.dispatchEvent(new CustomEvent("registration-completed", {detail:JSON.parse(JSON.stringify(this.registration)), composed:true, bubbles:true}));
+        }
+    }
+    _takePic(){
+        this.$.picButton.click();
+    }
+
+    _clearPhoto() {
+        var context = this.$.canvas.getContext("2d");
+        context.clearRect(0, 0, this.$.canvas.width, this.$.canvas.height);
+    }
+    _drawPhoto(e){
+        var fr = new FileReader(); 
+        fr.onload = (c) =>{
+            var im = new Image(); 
+            im.onload = () => {
+                this.$.canvas.getContext("2d").drawImage(im, 0, 0, im.width, im.height, 0, 0, 300, 300);
+                this.registration.Photo = this.$.canvas.toDataURL();
+            }
+            im.src = c.target.result;
+        };
+        fr.readAsDataURL(e.target.files[0]);
+
+    }
+
+    hidefab(){
+        this.$.fab.hidden = true;
+    }
+    
+    
+
+   
 }
 
 customElements.define('badge-registration', BadgeRegistration);

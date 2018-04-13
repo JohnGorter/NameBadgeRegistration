@@ -1,5 +1,5 @@
-import '/node_modules/@polymer/polymer/polymer.js';
-import { Element as PolymerElement } from '/node_modules/@polymer/polymer/polymer-element.js';
+import '/node_modules/@polymer/polymer/polymer-legacy.js';
+import { PolymerElement } from '/node_modules/@polymer/polymer/polymer-element.js';
 
 const html = String.raw;
 const htmlTemplate = html`
@@ -24,10 +24,6 @@ export class BarcodeTarget extends PolymerElement {
     static get template(){
         return `
         <style>
-            @media print {
-                body { margin:0px;}
-                .logo { display:none; }
-            }
              .name { font-size:30px;margin-top:30px;}
             .details { padding-top: 14px;
                 font-size: 15px;
@@ -73,7 +69,7 @@ export class BarcodeTarget extends PolymerElement {
                     <div class="details">
                         <div class="strong">Start met verbinden:</div>
                         <div>sbadge.nl/download</div>
-                        <div class="name">[[item.username]]</div>
+                        <div class="name">[[item.Username]]</div>
                         <div class="strong">[[item.Company]]</div>
                     </div>
                     <div id="barcode"></div>
@@ -102,7 +98,7 @@ export class BarcodeTarget extends PolymerElement {
             width : 100,
             height : 100
         });
-        qrcode.makeCode(this.item.username);
+        qrcode.makeCode(this.item.Username);
     }
 }
 
@@ -115,13 +111,21 @@ export class BadgePrint extends PolymerElement {
     }
 
      _cancel(){
-        this.dispatchEvent(new CustomEvent("print-badge-done", { composed:true, bubbles:true}));
+        this.dispatchEvent(new CustomEvent("print-badge-done", { detail:{ completed:false}, composed:true, bubbles:true}));
      }
 
      _printbadge(){
          var printwindow = window.open("", "", "location=0,status=0,scrollbars=0,left=200,top=100,width=650,height=600");
          let stringinnerhtml = `
+         <!DOCTYPE html><html><head>
          <script type='module' src='/src/badge-app.js'></script>
+         <style type="text/css" media="print">
+            div.badge
+            {
+                page-break-after: always;
+                page-break-inside: avoid;
+            }
+        </style>
          <style>
          .name { font-size:30px;margin-top:30px;}
         .details { padding-top: 14px;
@@ -149,6 +153,7 @@ export class BadgePrint extends PolymerElement {
         .strong { font-weight:bold}
         .banner { background-color:#402c57;position:absolute;width:100%;height:50px;}
         .badge { -webkit-print-color-adjust: exact;border:0.5px solid black;position:relative;margin:5px;width:360px;height:220px; background-size:cover;background-image:url('./images/bg.svg')}
+        
         #barcode img {display: block;right: 32px;top:25px;height:80px;width:80px;background-color: white;padding: 8px;position: absolute;}
         .header { position:absolute;width:280px;display:flex;justify-content:space-between;margin-right:10px;}
         .row { position:relative;display:flex;justify-content:space-between;}
@@ -160,14 +165,14 @@ export class BadgePrint extends PolymerElement {
             padding: 10px;}
         iron-icon { height:20px;width:20px;}
         .row { height:30px;display:flex;align-items:center;line-height:30px;}
-        .row div { height:16px}
-    </style><div style='display:flex;flex-wrap:wrap'>`;
+        .row div { height:16px }
+    </style></head><body><div style='display:flex;flex-wrap:wrap'>`;
 
          var barcodes = this.shadowRoot.querySelectorAll("barcode-target");
          barcodes.forEach(b => {
             stringinnerhtml += b.toHTML();
          });
-         stringinnerhtml += "</div>";
+         stringinnerhtml += "</div></body></html>";
          printwindow.document.body.innerHTML = stringinnerhtml;
          printwindow.print();
         printwindow.close();
