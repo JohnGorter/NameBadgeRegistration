@@ -166,7 +166,7 @@ export class BadgePrint extends PolymerElement {
         iron-icon { height:20px;width:20px;}
         .row { height:30px;display:flex;align-items:center;line-height:30px;}
         .row div { height:16px }
-    </style></head><body><div style='display:flex;flex-wrap:wrap'>`;
+    </style></head><body style="-webkit-print-color-adjust:exact;"><div style='display:flex;flex-wrap:wrap'>`;
 
          var barcodes = this.shadowRoot.querySelectorAll("barcode-target");
          barcodes.forEach(b => {
