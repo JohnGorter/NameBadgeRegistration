@@ -29,16 +29,3 @@
   "background_color": "#096BA6",
   "start_url": "/"
 }
-
-{
- 
-  "start_url": "/",
-  "display": "standalone",
-  "icons": [
-      {
-          "src": "/assets/images/favicon.png",
-          "type": "image/png",
-          "sizes": "512x512"
-      }
-  ]
-}
