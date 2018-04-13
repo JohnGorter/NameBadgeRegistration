@@ -44,7 +44,7 @@ var template = `
             <paper-tab><iron-icon icon="image:grid-on"></iron-icon></paper-tab>
        </paper-tabs>
 
-       <ico-app api-key="AIzaSyD22SNSB6S5EVQqbT1XYQ2Xn0iMQGOk-iA"  auth-domain="woe-dag.firebaseapp.com" database-U-R-L="https://woe-dag.firebaseio.com" project-id="woe-dag" storage-bucket="woe-dag.appspot.com" messaging-sender-id="576477840466"></ico-app>
+       <ico-app api-key="AIzaSyC-0AJ2JrHirZ7cKPojEUks26Fftcb12JA  auth-domain="iconica-sbadge.firebaseapp.com" database-U-R-L="https://iconica-sbadge.firebaseio.com" project-id="iconica-sbadge" storage-bucket="iconica-sbadge.appspot.com" messaging-sender-id="319820458930"></ico-app>
 
         <ico-query id="newsitems" path="newsitems/items" data="{{newsitems}}"></ico-query>
        <ico-auth id="auth" user="{{user}}"></ico-auth>
