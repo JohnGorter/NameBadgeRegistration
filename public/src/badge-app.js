@@ -132,13 +132,17 @@ export class BadgeApp extends GestureEventListeners(PolymerElement) {
         
         if (!("registrations" in localStorage)){
             firebase.database().ref("registrations").once("value", (s) => {
-                localStorage["registrations"] = JSON.stringify(Object.values(s.val()));
+                let val = s.val(); 
+                if (val)
+                    localStorage["registrations"] = JSON.stringify(Object.values(val));
             });
         }
 
         if (!("onsite_registrations" in localStorage)){
             firebase.database().ref("onsite_registrations").once("value", (s) => {
-                localStorage["onsite_registrations"] = JSON.stringify(Object.values(s.val()));
+                let val = s.val(); 
+                if (val)
+                    localStorage["onsite_registrations"] = JSON.stringify(Object.values(val));
             });
         }
         this.items = [
