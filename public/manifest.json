@@ -1,4 +1,6 @@
 {
+  "description": "Iconica's smartbadge registration app",
+  "theme_color": "#096BA6",
   "short_name": "Smartbadge Registration",
   "name": "Iconica Smartbadge Registration",
   "display":"standalone",
@@ -17,8 +19,26 @@
       "src": "/images/ic_launcher_192x192.png",
       "type": "image/png",
       "sizes": "192x192"
-    }
+    },
+    {
+      "src": "/images/ic_launcher_512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+  }
   ],
   "background_color": "#096BA6",
-  "start_url": "index.html?launcher=true"
+  "start_url": "/"
+}
+
+{
+ 
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+      {
+          "src": "/assets/images/favicon.png",
+          "type": "image/png",
+          "sizes": "512x512"
+      }
+  ]
 }
