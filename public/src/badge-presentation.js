@@ -117,8 +117,8 @@ export class BadgePresentation extends GestureEventListeners(PolymerElement) {
     }
     
     _sort(a, b) {
-        var y =  new Date(a.LastName);
-        var x = new Date(b.LastName);
+        var y =  new Date(a.ApplicationDate);
+        var x = new Date(b.ApplicationDate);
         return x < y ? -1 : x > y ? 1 : 0;
     }
 
