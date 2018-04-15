@@ -68,7 +68,7 @@ export class BarcodeTarget extends PolymerElement {
                     <div class="banner"></div>
                     <div class="details">
                         <div class="strong">Start met verbinden:</div>
-                        <div>sbadge.nl/download</div>
+                        <div>sbadge.nl</div>
                         <div class="name">[[item.Username]]</div>
                         <div class="strong">[[item.Company]]</div>
                     </div>

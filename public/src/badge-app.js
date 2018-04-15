@@ -158,20 +158,23 @@ export class BadgeApp extends GestureEventListeners(PolymerElement) {
 
     _syncData(){
         firebase.database().ref("registrationcount").once('value', (snapshot)=>{
-            var count = parseInt(snapshot.val()); 
-            // if the counter has increased.... we have new data...
-            if (this.registrationcount != count) {
-                // grab new data
-                firebase.database().ref("onsite_registrations").once('value', (snapshot)=>{
-                    console.log("snapshot taken, store it in localstorage");
-                    localStorage["onsite_registrations"] = JSON.stringify(Object.values(snapshot.val())); 
-                    this.items = [
-                        ...JSON.parse(localStorage["onsite_registrations"]),
-                        ...JSON.parse(localStorage["registrations"])];
-        
-                });  
-                this.registrationcount = count;
-                localStorage["registrationcount"] = count;
+            let val = snapshot.val();
+            if (val){
+                var count = parseInt(val); 
+                // if the counter has increased.... we have new data...
+                if (this.registrationcount != count) {
+                    // grab new data
+                    firebase.database().ref("onsite_registrations").once('value', (snapshot)=>{
+                        console.log("snapshot taken, store it in localstorage");
+                        localStorage["onsite_registrations"] = JSON.stringify(Object.values(snapshot.val())); 
+                        this.items = [
+                            ...(localStorage["onsite_registrations"] ? JSON.parse(localStorage["onsite_registrations"]) : []),
+                            ...(localStorage["registrations"] ? JSON.parse(localStorage["registrations"]) : [])];
+            
+                    });  
+                    this.registrationcount = count;
+                    localStorage["registrationcount"] = count;
+                }
             }
         });
     }
