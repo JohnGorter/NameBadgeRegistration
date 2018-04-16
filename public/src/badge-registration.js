@@ -9,7 +9,7 @@ const template = `
         :root {
             --paper-listbox-background-color:white;
             --paper-input-container-underline: {
-              border:1px solid var(--tint-color);
+              border:1px solid red;
             };
         }
         badge-buttongroup paper-button { margin-bottom:10px;}
@@ -33,6 +33,11 @@ const template = `
         paper-input { margin-left:20px;width:40vw;}
         paper-dropdown-menu { margin-left:20px;}
         paper-input[wide] { width:70vw;}
+        paper-input[lessimportant] { 
+            --paper-input-container-underline: {
+                border:1px solid var(--tint-color);
+              };
+        }
         :root { --paper-input-container-color:#bbb;
             --paper-input-container-label: {
                 font-size:3vw;
@@ -51,9 +56,9 @@ const template = `
         <div step0>
             <p class="strong">In drie stappen je netwerk verbreden.</p>
             <hr>
-            <paper-input value="{{registration.FirstName}}" label="Je voornaam"  ></paper-input>
-            <paper-input value="{{registration.LastName}}" label="Je achternaam"  ></paper-input>
-            <paper-input value="{{registration.Email}}" label="Email address" ></paper-input>
+            <paper-input value="{{registration.FirstName}}" label="Je voornaam"></paper-input>
+            <paper-input value="{{registration.LastName}}" label="Je achternaam"></paper-input>
+            <paper-input value="{{registration.Email}}" label="Email address"></paper-input>
             <hr>
             <p>Ik ben een</p>
             <badge-buttongroup selected="{{registration.registrationType}}">
@@ -107,7 +112,7 @@ const template = `
                         </paper-listbox>
                     </paper-dropdown-menu>
                     <paper-input  wide value="{{registration.Omschrijving}}" label="Met welke trefwoorden kan je je bedrijf omschrijven?"></paper-input>
-                    <paper-input wide value="{{registration.FoundingYear}}" label="In welk jaar is je bedrijf opgericht?"></paper-input>
+                    <paper-input wide lessimportant value="{{registration.FoundingYear}}" label="In welk jaar is je bedrijf opgericht?"></paper-input>
                     <paper-input wide value="{{registration.BusinessModel}}" label="Wat is je businessmodel?"></paper-input>
                     <paper-input wide value="{{registration.WerknemersAantal}}" label="Hoeveel mensen werken in je bedrijf?"></paper-input>
                     <paper-input wide value="{{registration.Connect}}" label="Ik zou graag in contact komen met mensen die me toegang kunnen bieden tot?"></paper-input>
