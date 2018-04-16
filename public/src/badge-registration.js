@@ -72,7 +72,7 @@ const template = `
                     <p class="strong">Vertel ons meer over je business!</p>
                     <hr>
                     <paper-input value="{{registration.Company}}" label="Wat is de naam van je bedrijf?" ></paper-input>
-                    <paper-dropdown-menu  allow-outside-scroll label="Actief in de sector:" value="{{registration.Sector}}">
+                    <paper-dropdown-menu  allow-outside-scroll label="Actief in de sector:" value="{{registration.Sectors}}">
                         <paper-listbox slot="dropdown-content" selected="1">
                         <paper-item>Agriculture</paper-item>
                         <paper-item>Big data</paper-item>
@@ -107,59 +107,28 @@ const template = `
                         <paper-item>Other</paper-item>
                         </paper-listbox>
                     </paper-dropdown-menu>
-                    <paper-input  wide value="{{registration.Description}}" label="Met welke trefwoorden kan je je bedrijf omschrijven?"></paper-input>
-                    <paper-input wide value="{{registration.CompanyYear}}" label="In welk jaar is je bedrijf opgericht?"></paper-input>
-                    <paper-input wide value="{{registration.Interest}}" label="Ik zou graag in contact komen met mensen die me toegang kunnen bieden tot?"></paper-input>
+                    <paper-input  wide value="{{registration.Omschrijving}}" label="Met welke trefwoorden kan je je bedrijf omschrijven?"></paper-input>
+                    <paper-input wide value="{{registration.FoundingYear}}" label="In welk jaar is je bedrijf opgericht?"></paper-input>
+                    <paper-input wide value="{{registration.BusinessModel}}" label="Wat is je businessmodel?"></paper-input>
+                    <paper-input wide value="{{registration.WerknemersAantal}}" label="Hoeveel mensen werken in je bedrijf?"></paper-input>
+                    <paper-input wide value="{{registration.Connect}}" label="Ik zou graag in contact komen met mensen die me toegang kunnen bieden tot?"></paper-input>
+                    <paper-input wide value="{{registration.Interests}}" label="Ik ga deelnemen aan?"></paper-input>
                     <hr>
                 </div>
                 <div>
                     <p class="strong">Wat leuk, je komt ons bezoeken als student!</p>
                     <hr>
-                    <paper-input value="{{registration.School}}" label="Op welke school zit je?" ></paper-input>
-                    <paper-dropdown-menu  allow-outside-scroll label="In welke sector ben je geinteresseerd?" value="{{registration.Sector}}">
-                        <paper-listbox slot="dropdown-content" selected="1">
-                        <paper-item>Agriculture</paper-item>
-                        <paper-item>Big data</paper-item>
-                        <paper-item>Business Products</paper-item>
-                        <paper-item>Business Services</paper-item>
-                        <paper-item>Bio technology</paper-item>
-                        <paper-item>Chemical</paper-item>
-                        <paper-item>Consulting</paper-item>
-                        <paper-item>Clean technology</paper-item>
-                        <paper-item>Consumer Products</paper-item>
-                        <paper-item>E-commerce</paper-item>
-                        <paper-item>E-learning</paper-item>
-                        <paper-item>Energy</paper-item>
-                        <paper-item>Education & E-learning</paper-item>
-                        <paper-item>Electronics</paper-item>
-                        <paper-item>Entertainment</paper-item>
-                        <paper-item>Financial Technology</paper-item>
-                        <paper-item>Gaming</paper-item>
-                        <paper-item>Health care & Medical</paper-item>
-                        <paper-item>Life Sciences</paper-item>
-                        <paper-item>Lifestyle</paper-item>
-                        <paper-item>Logistics & Transport</paper-item>
-                        <paper-item>Nano technology</paper-item>
-                        <paper-item>Marketing & E-commerce</paper-item>
-                        <paper-item>Mobile & Apps</paper-item>
-                        <paper-item>Semi conductors</paper-item>
-                        <paper-item>Social media</paper-item>
-                        <paper-item>Smart Cities</paper-item>
-                        <paper-item>Sports</paper-item>
-                        <paper-item>Telecommunicaties</paper-item>
-                        <paper-item>Travel & Tourism</paper-item>
-                        <paper-item>Other</paper-item>
-                        </paper-listbox>
-                    </paper-dropdown-menu>
-                    <paper-input wide value="{{registration.Interest}}" label="Ik wil graag mensen ontmoeten die mij kunnen helpen met?"></paper-input>
-                    <paper-input wide style="margin-top: 10px;" value="{{registration.Motivation}}" label="Wat is jouw motivatie voor jou aanwezigheid op de summit?"></paper-input>
+                    <paper-input value="{{registration.Onderwijsinstelling}}" label="Op welke school zit je?" ></paper-input>
+                    <paper-input wide value="{{registration.Interests}}" label="Ik ga deelnemen aan?"></paper-input>
+                    <paper-input wide style="margin-top: 10px;" value="{{registration.Motivatie}}" label="Waarom neem je deel aan dit evenement?"></paper-input>
                     <hr>
                 </div>
                 <div>
                     <p class="strong">We helpen je graag met het leggen van verbindingen</p>
                     <hr>
                     <paper-input value="{{registration.Company}}" label="Wat is de naam van je bedrijf?" ></paper-input>
-                    <paper-input value="{{registration.Function}}" label="Wat is uw functie binnen het bedrijf?" ></paper-input>
+                    <paper-input  wide value="{{registration.Omschrijving}}" label="Met welke trefwoorden kan je je bedrijf omschrijven?"></paper-input>
+                    <paper-input value="{{registration.Functie}}" label="Wat is uw functie binnen het bedrijf?" ></paper-input>
                     <paper-dropdown-menu allow-outside-scroll label="Actief in de sector:" value="{{registration.Sector}}">
                         <paper-listbox slot="dropdown-content" selected="1">
                         <paper-item>Agriculture</paper-item>
@@ -206,7 +175,7 @@ const template = `
                             <paper-button small>Markets</paper-button>
                         <badge-buttongroup> 
                     </div>  
-                    <paper-input wide style="margin-top:10px;" value="{{registration.Interest}}" label="Ik zou graag mensen ontmoeten die me helpen met?"></paper-input>
+                    <paper-input wide style="margin-top:10px;" value="{{registration.Samenwerking}}" label="Ik zou graag mensen ontmoeten die me helpen met?"></paper-input>
                     <hr>
                 </div>
             </iron-pages>
@@ -284,7 +253,7 @@ export class BadgeRegistration extends PolymerElement {
                 for (var t of this.Tags){
                     tagnames.push(t.innerText);
                 }
-                this.registration.Activities = tagnames;
+                this.registration.Activiteiten = tagnames;
             }
 
             this.dispatchEvent(new CustomEvent("registration-completed", {detail:JSON.parse(JSON.stringify(this.registration)), composed:true, bubbles:true}));
