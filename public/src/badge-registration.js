@@ -75,7 +75,7 @@ const template = `
                 <div>
                     <p class="strong">Vertel ons meer over je business!</p>
                     <hr>
-                    <paper-input value="{{registration.Company}}" label="Wat is de naam van je bedrijf?" ></paper-input>
+                    <paper-input value="{{registration.CompanyName}}" label="Wat is de naam van je bedrijf?" ></paper-input>
                     <paper-dropdown-menu  allow-outside-scroll label="Actief in de sector:" value="{{registration.Sectors}}">
                         <paper-listbox slot="dropdown-content" selected="1">
                         <paper-item>Agriculture</paper-item>
@@ -139,7 +139,7 @@ const template = `
                 <div>
                     <p class="strong">We helpen je graag met het leggen van verbindingen</p>
                     <hr>
-                    <paper-input value="{{registration.Company}}" label="Wat is de naam van je bedrijf?" ></paper-input>
+                    <paper-input value="{{registration.CompanyName}}" label="Wat is de naam van je bedrijf?" ></paper-input>
                     <paper-input  wide value="{{registration.Omschrijving}}" label="Met welke trefwoorden kan je je bedrijf omschrijven?"></paper-input>
                     <paper-input value="{{registration.Functie}}" label="Wat is uw functie binnen het bedrijf?" ></paper-input>
                     <paper-dropdown-menu allow-outside-scroll label="Actief in de sector:" value="{{registration.Sector}}">
