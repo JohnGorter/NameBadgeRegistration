@@ -198,6 +198,9 @@ export class BadgeApp extends GestureEventListeners(PolymerElement) {
         e.detail.ApplicationDate = date.getFullYear() + "-" + (date.getMonth() + 1).toString().padStart(2,0) + "-" + date.getDate().toString().padStart(2,0) + " " + date.getHours().toString().padStart(2,0) + ":" + date.getMinutes().toString().padStart(2,0) + ":" + date.getSeconds().toString().padStart(2,0);
         e.detail.Username = e.detail.FirstName.trim() + " " + e.detail.LastName.trim();
         e.detail.Created = Date.now();
+        if (e.detail.registrationType == 0) e.detail.PersonaName = "Ondernemer";
+        if (e.detail.registrationType == 1) e.detail.PersonaName = "Student";
+        if (e.detail.registrationType == 2) e.detail.PersonaName = "Bezoeker";
         if (!e.detail.akkoord) e.detail.akkoord = false;
         firebase.database().ref("registrationcount").set(e.detail.id);
         firebase.database().ref("onsite_registrations").push(e.detail).then(() => {
