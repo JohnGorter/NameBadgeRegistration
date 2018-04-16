@@ -113,17 +113,26 @@ const template = `
                     </paper-dropdown-menu>
                     <paper-input  wide value="{{registration.Omschrijving}}" label="Met welke trefwoorden kan je je bedrijf omschrijven?"></paper-input>
                     <paper-input wide lessimportant value="{{registration.FoundingYear}}" label="In welk jaar is je bedrijf opgericht?"></paper-input>
-                    <paper-input wide value="{{registration.BusinessModel}}" label="Wat is je businessmodel?"></paper-input>
-                    <paper-input wide value="{{registration.WerknemersAantal}}" label="Hoeveel mensen werken in je bedrijf?"></paper-input>
-                    <paper-input wide value="{{registration.Connect}}" label="Ik zou graag in contact komen met mensen die me toegang kunnen bieden tot?"></paper-input>
-                    <paper-input wide value="{{registration.Interests}}" label="Ik ga deelnemen aan?"></paper-input>
+                    <paper-input wide lessimportant value="{{registration.BusinessModel}}" label="Wat is je businessmodel?"></paper-input>
+                    <paper-input wide lessimportant value="{{registration.WerknemersAantal}}" label="Hoeveel mensen werken in je bedrijf?"></paper-input>
+                    <div style="font-size:3vw;margin-left:20px;margin-top:30px;margin-bottom:20px;">Ik zou graag in contact komen met mensen die me toegang kunnen bieden tot:</div>
+                    <div style="margin-left:20px;">
+                        <badge-buttongroup multi selecteds="{{ConnectTags}}">
+                            <paper-button small>Talent</paper-button>   
+                            <paper-button small>Capital</paper-button>   
+                            <paper-button small>Support</paper-button>
+                            <paper-button small>Network</paper-button>
+                            <paper-button small>Knowledge</paper-button>
+                            <paper-button small>Markets</paper-button>
+                        <badge-buttongroup> 
+                    </div>  
+                    <paper-input wide lessimportant value="{{registration.Interests}}" label="Ik ga deelnemen aan?"></paper-input>
                     <hr>
                 </div>
                 <div>
                     <p class="strong">Wat leuk, je komt ons bezoeken als student!</p>
                     <hr>
-                    <paper-input value="{{registration.Onderwijsinstelling}}" label="Op welke school zit je?" ></paper-input>
-                    <paper-input wide value="{{registration.Interests}}" label="Ik ga deelnemen aan?"></paper-input>
+                    <paper-input wide value="{{registration.Onderwijsinstelling}}" label="Aan welke onderwijsinstelling studeer je?" ></paper-input>
                     <paper-input wide style="margin-top: 10px;" value="{{registration.Motivatie}}" label="Waarom neem je deel aan dit evenement?"></paper-input>
                     <hr>
                 </div>
@@ -168,18 +177,8 @@ const template = `
                         <paper-item>Other</paper-item>
                         </paper-listbox>
                     </paper-dropdown-menu>
-                    <div style="font-size:3vw;margin-left:20px;margin-top:30px;margin-bottom:20px;">Mijn activiteiten richten zich met name op:</div>
-                    <div style="margin-left:20px;">
-                        <badge-buttongroup multi selecteds="{{Tags}}">
-                            <paper-button small>Talent</paper-button>   
-                            <paper-button small>Capital</paper-button>   
-                            <paper-button small>Support</paper-button>
-                            <paper-button small>Network</paper-button>
-                            <paper-button small>Knowledge</paper-button>
-                            <paper-button small>Markets</paper-button>
-                        <badge-buttongroup> 
-                    </div>  
-                    <paper-input wide style="margin-top:10px;" value="{{registration.Samenwerking}}" label="Ik zou graag mensen ontmoeten die me helpen met?"></paper-input>
+                    <paper-input wide style="margin-top:10px;" value="{{registration.Activiteiten}}" label="Korte omschrijving van jouw organisatie en/of activiteiten"></paper-input>
+                    <paper-input wide style="margin-top:10px;" value="{{registration.Samenwerking}}" label="Waar zoek jij samenwerkingen?"></paper-input>
                     <hr>
                 </div>
             </iron-pages>
@@ -252,6 +251,14 @@ export class BadgeRegistration extends PolymerElement {
             }
         }
         else {
+            let connecttags = [];
+            if (this.ConnectTags) {
+                for (var t of this.ConnectTags){
+                    connecttags.push(t.innerText);
+                }
+                this.registration.Connect = connecttags.join(",");
+            }
+
             let tagnames = [];
             if (this.Tags){
                 for (var t of this.Tags){
