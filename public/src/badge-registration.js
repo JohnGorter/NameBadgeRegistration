@@ -177,7 +177,7 @@ const template = `
                         <paper-item>Other</paper-item>
                         </paper-listbox>
                     </paper-dropdown-menu>
-                    <paper-input wide style="margin-top:10px;" value="{{registration.Activiteiten}}" label="Korte omschrijving van jouw organisatie en/of activiteiten"></paper-input>
+                    <paper-input wide lessimportant style="margin-top:10px;" value="{{registration.Activiteiten}}" label="Korte omschrijving van jouw organisatie en/of activiteiten"></paper-input>
                     <paper-input wide style="margin-top:10px;" value="{{registration.Samenwerking}}" label="Waar zoek jij samenwerkingen?"></paper-input>
                     <hr>
                 </div>
