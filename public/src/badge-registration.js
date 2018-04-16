@@ -54,7 +54,6 @@ const template = `
             <paper-input value="{{registration.FirstName}}" label="Je voornaam"  ></paper-input>
             <paper-input value="{{registration.LastName}}" label="Je achternaam"  ></paper-input>
             <paper-input value="{{registration.Email}}" label="Email address" ></paper-input>
-            <paper-input value="{{registration.Telefoonnummer}}" label="Je telefoonnummer" ></paper-input>
             <hr>
             <p>Ik ben een</p>
             <badge-buttongroup selected="{{registration.registrationType}}">
