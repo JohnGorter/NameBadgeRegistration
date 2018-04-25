@@ -74,7 +74,7 @@ export class BarcodeTarget extends PolymerElement {
                     </div>
                     <div id="barcode"></div>
             </div>
-            <div class="badge" id="badge_back">
+           <!-- <div class="badge" id="badge_back">
                     <div class="details_back">
                         <div class="header"><div>www.iconica.nl</div><div style="padding-right:10px;">www.sbadge.nl</div></div>
                         <div class="dotted">
@@ -84,7 +84,7 @@ export class BarcodeTarget extends PolymerElement {
                             <div class="row"><iron-icon icon="communication:location-on"></iron-icon><div style="margin-left:10px;flex:1;border-bottom:1px dotted black"></div></div>
                         </div>
                     </div>
-            </div>
+            </div> -->
         </div>
         `
     }
